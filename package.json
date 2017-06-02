@@ -1,0 +1,40 @@
+{
+  "name": "Angular 4 test app",
+  "version": "1.0.0",
+  "description": "Light It test angular4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/severjason/webpack-workflow.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "keywords": [
+    "webpack",
+    "angular4"
+  ],
+  "author": "severjason",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "file-loader": "^0.11.1",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.17.0",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-uglify-js-plugin": "^1.1.9"
+  },
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^3.2.1"
+  }
+}
