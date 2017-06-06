@@ -1,0 +1,31 @@
+<header class="container container-fluid">
+    <h1> LightIt test by Angular 4 </h1>
+    <hr>
+</header>
+
+<nav class="nav container container-fluid justify-content-between">
+  <div class="row justify-content-start">
+    <a class="nav-link" [routerLink]="['/all-products']">All products</a>
+  </div>
+  <div class="row justify-content-end">
+    <a class="nav-link " [routerLink]="['/sign-up']">Sign Up</a>
+    <a class="nav-link" [routerLink]="['/login']" >Login</a>
+<!--
+    <a class="nav-link disabled" href="#">Logout</a>
+-->
+  </div>
+</nav>
+
+<div class="content container container-fluid">
+  <router-outlet></router-outlet>
+</div>
+
+<footer role="contentinfo" class="container container-fluid text-center">
+
+  <small>Copyright ©
+    <time datetime="2017">2017</time>
+  </small>
+
+</footer>
+
+

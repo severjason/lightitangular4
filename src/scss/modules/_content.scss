@@ -1,0 +1,13 @@
+@import '../variables';
+
+.content {
+  min-height: 500px;
+}
+
+.loader {
+  left: 50%;
+  margin-left: - $app-loader-height / 2;
+  margin-top: $app-loader-padding;
+  position: absolute;
+  width: $app-loader-width;
+} // .loader
