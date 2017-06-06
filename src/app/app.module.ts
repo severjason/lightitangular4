@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 
@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './signUp/signUp.component';
 import { HomeComponent } from './home/home.component';
+import {stringDistance} from 'codelyzer/util/utils';
 
 const routes: Routes = [
   {
@@ -44,7 +45,14 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    Title
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  public constructor(private titleService: Title) {}
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle(newTitle)
+  }
+}
