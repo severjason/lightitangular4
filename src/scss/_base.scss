@@ -1,3 +1,5 @@
+@import 'variables';
+
 img {
   display: block;
   max-width: 100%;
@@ -20,4 +22,23 @@ a:focus {
   &::selection {
     background: transparent;
   }
+}
+
+.max-width-640 {
+  max-width: 640px;
+}
+
+.btn {
+  border-radius: $button-border-radius;
+  cursor: pointer;
+}
+
+.btn-center {
+  display: block;
+  margin: 0 auto;
+}
+
+.form-control {
+  border-radius: $custom-border-radius;
+  line-height: 1.5;
 }

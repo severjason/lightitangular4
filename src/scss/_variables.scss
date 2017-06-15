@@ -1,8 +1,14 @@
+// base
+$custom-border-radius: 1px;
+
 // header
 $header-padding: 10px 0;
 
 // nav
 $nav-padding: 15px;
+
+// buttons
+$button-border-radius: $custom-border-radius;
 
 
 // loaders

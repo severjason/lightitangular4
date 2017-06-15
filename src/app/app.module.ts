@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './signUp/signUp.component';
 import { HomeComponent } from './home/home.component';
-import {stringDistance} from 'codelyzer/util/utils';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -39,10 +39,11 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [

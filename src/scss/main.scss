@@ -1,6 +1,9 @@
 // main.scss
 // ==============
 
+// Vendors
+@import 'libs';
+
 // Fonts
 @import 'fonts';
 
@@ -8,7 +11,6 @@
 @import 'variables';
 @import 'mixins';
 @import 'base';
-@import 'libs';
 
 
 // Modules
@@ -17,3 +19,4 @@
 @import 'modules/footer';
 @import 'modules/media';
 @import 'modules/nav';
+
