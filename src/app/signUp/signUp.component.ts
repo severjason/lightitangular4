@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { matchOtherValidator } from '../shared/matchOtherValidator';
+import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {matchOtherValidator} from '../shared/matchOtherValidator';
+import {passwordValidation} from '../shared/passwordValidation';
 
 @Component({
   templateUrl: './signUp.component.html',
@@ -14,12 +15,13 @@ export class SignUpComponent implements OnInit {
   public password: AbstractControl;
   public passwordConfirmation: AbstractControl;
 
-
-
   constructor(private titleService: Title, private fb: FormBuilder) {
     this.signUpForm = fb.group({
       'username': ['', Validators.required],
-      'password': ['', Validators.required],
+      'password': ['', Validators.compose([
+        Validators.required,
+        passwordValidation
+      ])],
       'passwordConfirmation': ['', Validators.compose([
         Validators.required,
         matchOtherValidator('password')])],

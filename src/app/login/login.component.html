@@ -1,3 +1,47 @@
-<h2>
-  Login page
-</h2>
+<div class="container-fluid max-width-640">
+  <h3 class="text-center">
+    Login
+  </h3>
+  <form [formGroup]="loginForm"
+        (ngSubmit)="onSubmit(loginForm.value)">
+    <div class="form-group"
+         [class.has-danger]="!username.valid && (username.touched || username.dirty)"
+         [class.has-success]="username.valid && (username.touched || username.dirty)">
+      <label class="form-control-label" for="username">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Enter your username"
+        [formControl]="username"
+        [class.form-control-danger]="!username.valid && (username.touched || username.dirty)"
+        [class.form-control-success]="username.valid && (username.touched || username.dirty)">
+      <div *ngIf="!username.valid && (username.touched || username.dirty)"
+           class="form-control-feedback">
+        Please enter your name
+      </div>
+    </div>
+    <div class="form-group"
+         [class.has-danger]="!password.valid && (password.touched || password.dirty)"
+         [class.has-success]="password.valid && (password.touched || password.dirty)">
+      <label class="form-control-label" for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter your password"
+        [formControl]="password"
+        [class.form-control-danger]="!password.valid && (password.touched || password.dirty)"
+        [class.form-control-success]="password.valid && (password.touched || password.dirty)">
+      <div *ngIf="!password.valid && (password.touched || password.dirty)"
+           class="form-control-feedback">
+        Password shouldn`t be empty
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary btn-center"
+      [disabled]="!loginForm.valid">Login
+    </button>
+  </form>
+</div>

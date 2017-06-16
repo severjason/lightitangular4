@@ -42,3 +42,7 @@ a:focus {
   border-radius: $custom-border-radius;
   line-height: 1.5;
 }
+
+.active-route {
+  color: $active-route-link-color;
+}
