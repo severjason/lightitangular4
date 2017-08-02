@@ -9,7 +9,6 @@
          [class.has-success]="username.valid && (username.touched || username.dirty)">
       <label class="form-control-label" for="username">Username</label>
       <input
-        type="text"
         class="form-control"
         id="username"
         placeholder="Enter your username"
@@ -39,7 +38,6 @@
       </div>
     </div>
     <button
-      type="submit"
       class="btn btn-primary btn-center"
       [disabled]="!loginForm.valid">Login
     </button>
