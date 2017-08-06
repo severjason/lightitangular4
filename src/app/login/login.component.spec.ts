@@ -9,7 +9,7 @@ describe('Login Form Component', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  let el, input, form;
+  let el, passwordInput, usernameInput, submitButton, form;
 
   beforeEach(async(() => {
 
@@ -28,11 +28,11 @@ describe('Login Form Component', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement.nativeElement;
-    input = fixture.debugElement.query(By.css('#username')).nativeElement;
+    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
     form = fixture.debugElement.query(By.css('form')).nativeElement;
     fixture.detectChanges();
-    input.value = '';
-    input.dispatchEvent(new Event('input'));
+    usernameInput.value = '';
+    usernameInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     tick();
     const msgs = el.querySelectorAll('div.form-control-feedback');
@@ -43,11 +43,11 @@ describe('Login Form Component', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement.nativeElement;
-    input = fixture.debugElement.query(By.css('#username')).nativeElement;
+    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
     form = fixture.debugElement.query(By.css('form')).nativeElement;
     fixture.detectChanges();
-    input.value = 'test';
-    input.dispatchEvent(new Event('input'));
+    usernameInput.value = 'test';
+    usernameInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     tick();
     const msgs = el.querySelectorAll('div.form-control-feedback');
@@ -58,11 +58,11 @@ describe('Login Form Component', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement.nativeElement;
-    input = fixture.debugElement.query(By.css('#password')).nativeElement;
+    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
     form = fixture.debugElement.query(By.css('form')).nativeElement;
     fixture.detectChanges();
-    input.value = '';
-    input.dispatchEvent(new Event('input'));
+    passwordInput.value = '';
+    passwordInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     tick();
     const msgs = el.querySelectorAll('div.form-control-feedback');
@@ -73,16 +73,54 @@ describe('Login Form Component', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement.nativeElement;
-    input = fixture.debugElement.query(By.css('#password')).nativeElement;
+    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
     form = fixture.debugElement.query(By.css('form')).nativeElement;
     fixture.detectChanges();
-    input.value = 'test';
-    input.dispatchEvent(new Event('input'));
+    passwordInput.value = 'test';
+    passwordInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     tick();
     const msgs = el.querySelectorAll('div.form-control-feedback');
     expect(msgs.length).toEqual(0);
   }));
 
+  it('submit button active only when username and password correct', fakeAsync(() => {
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    el = fixture.debugElement.nativeElement;
+    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
+    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
+    submitButton = fixture.debugElement.query(By.css('button')).nativeElement;
+    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    fixture.detectChanges();
+    usernameInput.value = '';
+    passwordInput.value = '';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.dispatchEvent(new Event('input'));
+    tick();
+    fixture.detectChanges();
+    expect(submitButton.disabled).toBeTruthy();
+    usernameInput.value = 'test';
+    passwordInput.value = '';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.dispatchEvent(new Event('input'));
+    tick();
+    fixture.detectChanges();
+    expect(submitButton.disabled).toBeTruthy();
+    usernameInput.value = '';
+    passwordInput.value = 'test';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.dispatchEvent(new Event('input'));
+    tick();
+    fixture.detectChanges();
+    expect(submitButton.disabled).toBeTruthy();
+    usernameInput.value = 'username';
+    passwordInput.value = 'test';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.dispatchEvent(new Event('input'));
+    tick();
+    fixture.detectChanges();
+    expect(submitButton.disabled).toBeFalsy();
+  }));
 });
 
