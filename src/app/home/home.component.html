@@ -1,3 +1,14 @@
-<h2>
-  Home page
-</h2>
+<div *ngIf="error">
+  Error1
+</div>
+<div class="product-container row justify-content-around">
+  <div *ngFor="let product of products" class="product-preview grow-shadow" >
+    <img class="product-img"
+         src="assets/imgs/{{product.img}}"
+         alt="{{product.title}}"
+         title="{{product.title}}">
+    <div class="product-title">
+      {{product.title}}
+    </div>
+  </div>
+</div>
