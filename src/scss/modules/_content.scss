@@ -11,3 +11,16 @@
   position: absolute;
   width: $app-loader-width;
 } // .loader
+
+.product-container {
+  padding-top: $product-container-padding;
+
+  .product-preview {
+    margin-top: $product-margin;
+    width: 300px;
+  }
+
+  .product-title{
+    text-align: center;
+  }
+}

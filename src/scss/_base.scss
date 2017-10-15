@@ -46,3 +46,19 @@ a:focus {
 .active-route {
   color: $active-route-link-color;
 }
+
+.grow-shadow {
+  border-radius: $custom-border-radius;
+  box-shadow: 0 0 1px transparent;
+  transform: perspective(1px) translateZ(0);
+  transition-duration: .3s;
+  transition-property: box-shadow, transform;
+}
+
+.grow-shadow:hover,
+.grow-shadow:focus,
+.grow-shadow:active {
+  box-shadow: $product-box-shadow;
+  cursor: pointer;
+  transform: scale(1.05);
+}

@@ -1,8 +1,12 @@
-// base
-$custom-border-radius: 1px;
-
 // colors
 $active-route-link-color: #014c8c;
+
+// base
+$custom-border-radius: 2px;
+$test-border:1px solid $active-route-link-color;
+
+// effects
+$product-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 
 // header
 $header-padding: 10px 0;
@@ -18,3 +22,7 @@ $button-border-radius: $custom-border-radius;
 $app-loader-height: 120px;
 $app-loader-padding: 120px;
 $app-loader-width: 120px;
+
+// content
+$product-container-padding: 20px;
+$product-margin: 20px;
