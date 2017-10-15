@@ -7,6 +7,8 @@ import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './signUp/signUp.component';
 import {HomeComponent} from './home/home.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ApiService} from './api/api.service';
+import {HttpModule} from '@angular/http';
 
 const routes: Routes = [
   {
@@ -44,10 +46,12 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
-    Title
+    Title,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })
