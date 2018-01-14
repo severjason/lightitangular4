@@ -10,6 +10,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ApiService} from './api/api.service';
 import {HttpModule} from '@angular/http';
 import {ProductComponent} from './product/product.component';
+import {ProductResolver} from './product/products.resolver';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   {
     path: 'product/:id',
     component: ProductComponent,
-    data: [{title: ''}],
+    resolve: {products: ProductResolver},
   },
   {
     path: 'sign-up',
@@ -58,15 +59,16 @@ const routes: Routes = [
   ],
   providers: [
     Title,
-    ApiService
+    ApiService,
+    ProductResolver
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  public constructor(private titleService: Title) {
+  public constructor(/*private titleService: Title*/) {
   }
 
-  public setTitle(newTitle: string) {
+  /*public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle)
-  }
+  }*/
 }
