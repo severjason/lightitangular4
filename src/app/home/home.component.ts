@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {ApiService} from '../api/api.service';
-import {IProducts} from '../api/api.interface';
+import {IProduct} from '../api/api.interface';
 
 @Component({
   templateUrl: './home.component.html',
@@ -10,7 +10,7 @@ import {IProducts} from '../api/api.interface';
 export class HomeComponent implements OnInit {
 
   private _title = 'All products';
-  public products: IProducts[];
+  public products: IProduct[];
   public error: string;
 
   constructor(private titleService: Title, private apiService: ApiService) {}
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
-  public getProducts(): IProducts[] | void {
+  public getProducts(): IProduct[] | void {
     this.apiService.getProducts()
       .subscribe(
         res => {
