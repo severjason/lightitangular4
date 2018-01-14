@@ -2,7 +2,9 @@
   Error1
 </div>
 <div class="product-container row justify-content-around">
-  <div *ngFor="let product of products" class="product-preview grow-shadow" >
+  <a *ngFor="let product of products"
+     class="product-preview grow-shadow"
+     [routerLink]="['/product/', product.id]">
     <img class="product-img"
          src="assets/imgs/{{product.img}}"
          alt="{{product.title}}"
@@ -10,5 +12,5 @@
     <div class="product-title">
       {{product.title}}
     </div>
-  </div>
+  </a>
 </div>

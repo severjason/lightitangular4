@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
       .subscribe(
         res => {
           this.products = res;
-          console.log(this.products);
         },
         error => {
           this.error = error;

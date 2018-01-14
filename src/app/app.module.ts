@@ -9,6 +9,7 @@ import {HomeComponent} from './home/home.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ApiService} from './api/api.service';
 import {HttpModule} from '@angular/http';
+import {ProductComponent} from './product/product.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'all-products',
     component: HomeComponent,
+  },
+  {
+    path: 'product/:id',
+    component: ProductComponent,
+    data: [{title: ''}],
   },
   {
     path: 'sign-up',
@@ -40,6 +46,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
+    ProductComponent,
     SignUpComponent,
     LoginComponent,
   ],
