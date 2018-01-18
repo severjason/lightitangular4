@@ -20,7 +20,19 @@
     width: 300px;
   }
 
-  .product-title{
+  .product-title {
     text-align: center;
+  }
+}
+
+.product-details {
+  padding-top: $product-container-padding;
+
+  .product-img {
+    margin: 0 auto;
+  }
+
+  button {
+    margin-top: $button-margin;
   }
 }
