@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ApiService} from '../api/api.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   public username: AbstractControl;
   public password: AbstractControl;
 
-  constructor(private titleService: Title, private fb: FormBuilder) {
+  constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
     this.loginForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
@@ -27,6 +28,14 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(value: any): void {
-    console.log('Your submitted value: ', value);
+    this.apiService.login(value)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      )
   }
 }

@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {matchOtherValidator} from '../shared/matchOtherValidator';
 import {passwordValidation} from '../shared/passwordValidation';
+import {ApiService} from '../api/api.service';
 
 @Component({
   templateUrl: './signUp.component.html',
@@ -15,7 +16,7 @@ export class SignUpComponent implements OnInit {
   public password: AbstractControl;
   public passwordConfirmation: AbstractControl;
 
-  constructor(private titleService: Title, private fb: FormBuilder) {
+  constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
     this.signUpForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.compose([
@@ -36,7 +37,15 @@ export class SignUpComponent implements OnInit {
   }
 
   public onSubmit(value: any): void {
-    console.log('Your submitted value: ', value);
+    this.apiService.register(value)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      )
   }
 
 }

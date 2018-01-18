@@ -1,3 +1,23 @@
-<p>{{product.title}}</p>
-<p>{{product.img}}</p>
-<p>{{product.text}}</p>
+<div class="product-details row justify-content-around">
+  <div class="col">
+    <h4>{{product.title}}</h4>
+    <hr/>
+    <img class="product-img"
+         src="assets/imgs/{{product.img}}"
+         alt="{{product.title}}"
+         title="{{product.title}}">
+    <hr/>
+    <h5>Description:</h5>
+    <p>{{product.text}}</p>
+  </div>
+  <div class="col">
+    <h4>Your review:</h4>
+    <hr/>
+    <textarea class="form-control" placeholder="Your review...">
+
+    </textarea>
+    <button class="btn btn-primary">Submit</button>
+    <hr/>
+    <h5>Reviews:</h5>
+  </div>
+</div>
