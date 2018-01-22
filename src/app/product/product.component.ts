@@ -6,7 +6,7 @@ import {IProduct, IReview} from '../api/api.interface';
 
 @Component({
   templateUrl: './product.component.html',
-  providers: [ApiService]
+  providers: [ApiService],
 })
 
 export class ProductComponent implements OnInit {
@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit {
   private _products: IProduct[];
   public product: IProduct;
   public reviews: IReview[];
+  public error: any;
 
   constructor(
     private titleService: Title,
@@ -35,10 +36,11 @@ export class ProductComponent implements OnInit {
     this.apiService.getReviews(this._id)
       .subscribe(
       res => {
+        this.reviews = res;
         console.log(res);
       },
       error => {
-        console.log(error);
+        this.error = error;
       }
     )
   }

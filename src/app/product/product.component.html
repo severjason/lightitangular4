@@ -19,5 +19,27 @@
     <button class="btn btn-primary">Submit</button>
     <hr/>
     <h5>Reviews:</h5>
+    <div *ngIf="error" class="text-danger">
+      Can`t load reviews
+    </div>
+    <div *ngIf="reviews">
+      <div *ngFor="let review of reviews " class="review" [ngClass]="{'white' : (reviews.indexOf(review) % 2 !== 0)}">
+        <div class="row">
+          <div class="col">
+            <i *ngFor="let star of (review.rate | rateClass)" class="star fa {{star}}"  aria-hidden="true"></i>
+            &nbsp;by&nbsp;<span class="font-weight-bold">{{review.created_by.username}}</span>
+          </div>
+          <div class="col font-italic">
+            <span class="float-right">{{review.created_at | date: 'HH:mm | dd MMM yyyy'}}</span>
+          </div>
+        </div>
+
+        <hr/>
+        <div>
+          {{review.text}}
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>

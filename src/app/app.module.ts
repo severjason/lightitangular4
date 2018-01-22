@@ -11,6 +11,8 @@ import {ApiService} from './api/api.service';
 import {HttpModule} from '@angular/http';
 import {ProductComponent} from './product/product.component';
 import {ProductResolver} from './product/products.resolver';
+import {RateClassPipe} from './product/product-rate.pipe';
+
 
 const routes: Routes = [
   {
@@ -50,25 +52,22 @@ const routes: Routes = [
     ProductComponent,
     SignUpComponent,
     LoginComponent,
+    RateClassPipe,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+  ],
+  exports: [
+    RateClassPipe,
   ],
   providers: [
     Title,
     ApiService,
-    ProductResolver
+    ProductResolver,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  public constructor(/*private titleService: Title*/) {
-  }
-
-  /*public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle)
-  }*/
-}
+export class AppModule {}
