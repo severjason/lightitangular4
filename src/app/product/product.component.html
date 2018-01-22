@@ -25,11 +25,11 @@
     <div *ngIf="reviews">
       <div *ngFor="let review of reviews " class="review" [ngClass]="{'white' : (reviews.indexOf(review) % 2 !== 0)}">
         <div class="row">
-          <div class="col">
+          <div class="col-sm">
             <i *ngFor="let star of (review.rate | rateClass)" class="star fa {{star}}"  aria-hidden="true"></i>
             &nbsp;by&nbsp;<span class="font-weight-bold">{{review.created_by.username}}</span>
           </div>
-          <div class="col font-italic">
+          <div class="col-sm font-italic">
             <span class="float-right">{{review.created_at | date: 'HH:mm | dd MMM yyyy'}}</span>
           </div>
         </div>

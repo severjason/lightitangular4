@@ -41,7 +41,7 @@
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding: 1.5rem;
-    text-wrap: normal;
+    overflow-wrap: break-word;
 
     &.white {
       background-color: white;
