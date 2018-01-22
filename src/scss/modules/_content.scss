@@ -35,4 +35,20 @@
   button {
     margin-top: $button-margin;
   }
+
+  .review {
+    background-color: $gray;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    overflow-wrap: break-word;
+    padding: 1.5rem;
+
+    &.white {
+      background-color: white;
+      border: solid $gray;
+    }
+  }
+  .star {
+    color: $star-color;
+  }
 }
