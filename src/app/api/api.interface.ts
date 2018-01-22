@@ -8,6 +8,7 @@ export interface IProduct {
 export interface IReview {
   id: number,
   product: number,
+  created_at: Date,
   created_by: {
     id: number,
     username: string,

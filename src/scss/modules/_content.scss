@@ -40,8 +40,8 @@
     background-color: $gray;
     margin-bottom: 1rem;
     margin-top: 1rem;
-    overflow-wrap: break-word;
     padding: 1.5rem;
+    text-wrap: normal;
 
     &.white {
       background-color: white;
