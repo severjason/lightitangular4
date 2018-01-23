@@ -1,8 +1,10 @@
 import {LoginComponent} from './login.component';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {async} from 'q';
-import { By } from '@angular/platform-browser';
+import {By, Title} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ApiService} from '../api/api.service';
+import {HttpModule} from '@angular/http';
 
 describe('Login Form Component', () => {
 
@@ -16,11 +18,16 @@ describe('Login Form Component', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpModule,
       ],
       declarations: [
         LoginComponent
-      ]
+      ],
+      providers: [
+        Title,
+        ApiService,
+      ],
     }).compileComponents();
   }));
 
