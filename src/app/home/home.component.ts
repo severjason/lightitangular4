@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
         },
         error => {
           this.error = error;
-          console.log('Error :: ' + error)
         }
       )
   }

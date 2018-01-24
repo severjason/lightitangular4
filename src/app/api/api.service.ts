@@ -15,6 +15,7 @@ export class ApiService {
   private _reviewsUrl = 'reviews/';
 
   static handleError(error: Response) {
+    console.log(error.statusText || `Can't join the server.`);
     return Observable.throw(error.statusText);
   }
 
@@ -24,9 +25,7 @@ export class ApiService {
   public getProducts(): Observable<IProduct[]> {
     return this.http
       .get(this._apiUrl + this._productsUrl)
-      .map((response: Response) => {
-        return <IProduct[]>response.json();
-      })
+      .map((res: Response) => <IProduct[]>res.json())
       .catch(ApiService.handleError);
   }
 
@@ -34,21 +33,21 @@ export class ApiService {
     return this.http.post(this._apiUrl + this._registerUrl, {
         username: this.sanitizer.sanitize(SecurityContext.HTML, newUser.username),
         password: newUser.password,
-      })
+      }).map((res: Response) => res.json())
+      .catch(ApiService.handleError);
   }
 
   public login(user: any): Observable<any> {
     return this.http.post(this._apiUrl + this._loginUrl, {
       username: this.sanitizer.sanitize(SecurityContext.HTML, user.username),
       password: user.password,
-    })
+    }).map((res: Response) => res.json())
+      .catch(ApiService.handleError);
   }
 
   public getReviews(productId: number): Observable<any> {
     return this.http.get(this._apiUrl + this._reviewsUrl + `${productId}`)
-      .map((response: Response) => {
-        return response.json();
-      })
+      .map((res: Response) => res.json())
       .catch(ApiService.handleError);
   }
 

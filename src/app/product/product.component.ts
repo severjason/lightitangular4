@@ -37,7 +37,6 @@ export class ProductComponent implements OnInit {
       .subscribe(
       res => {
         this.reviews = res;
-        console.log(res);
       },
       error => {
         this.error = error;

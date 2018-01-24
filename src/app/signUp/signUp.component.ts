@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
   public username: AbstractControl;
   public password: AbstractControl;
   public passwordConfirmation: AbstractControl;
+  public error: Error;
 
   constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
     this.signUpForm = fb.group({
@@ -39,11 +40,15 @@ export class SignUpComponent implements OnInit {
   public onSubmit(value: any): void {
     this.apiService.register(value)
       .subscribe(
-        res => {
-          console.log(res);
+        data => {
+          if (data.status) {
+            console.log(`Ok - ${data}`);
+          } else {
+            this.error = data.message;
+          }
         },
         error => {
-          console.log(error);
+          this.error = error.statusText;
         }
       )
   }

@@ -76,5 +76,10 @@
       [disabled]="!signUpForm.valid">Sign Up
     </button>
   </form>
+  <div class="error-container">
+    <div class="error text-center text-danger" *ngIf="error">
+      {{error}}
+    </div>
+  </div>
 </div>
 

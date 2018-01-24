@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public username: AbstractControl;
   public password: AbstractControl;
+  public error: Error;
 
   constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
     this.loginForm = fb.group({
@@ -30,11 +31,15 @@ export class LoginComponent implements OnInit {
   public onSubmit(value: any): void {
     this.apiService.login(value)
       .subscribe(
-        res => {
-          console.log(res);
+        data => {
+          if (data.status) {
+            console.log(`Ok - ${data}`);
+          } else {
+            this.error = data.message;
+          }
         },
         error => {
-          console.log(error);
+          this.error = error.statusText;
         }
       )
   }
