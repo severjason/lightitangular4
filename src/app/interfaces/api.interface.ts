@@ -1,11 +1,11 @@
-export interface IProduct {
+export interface IAppProduct {
   id: number,
   img: string,
   text: string,
   title: string,
 }
 
-export interface IReview {
+export interface IAppReview {
   id: number,
   product: number,
   created_at: Date,
@@ -15,4 +15,9 @@ export interface IReview {
   },
   rate: number,
   text: string,
+}
+
+export interface IAppError {
+  status: boolean,
+  message: string,
 }

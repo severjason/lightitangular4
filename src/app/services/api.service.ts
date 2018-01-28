@@ -2,7 +2,7 @@ import {Injectable, SecurityContext} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
-import {IProduct} from './api.interface'
+import {IAppProduct} from '../interfaces/api.interface'
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable()
@@ -22,10 +22,10 @@ export class ApiService {
   constructor(private http: Http, private sanitizer: DomSanitizer) {
   }
 
-  public getProducts(): Observable<IProduct[]> {
+  public getProducts(): Observable<IAppProduct[]> {
     return this.http
       .get(this._apiUrl + this._productsUrl)
-      .map((res: Response) => <IProduct[]>res.json())
+      .map((res: Response) => <IAppProduct[]>res.json())
       .catch(ApiService.handleError);
   }
 

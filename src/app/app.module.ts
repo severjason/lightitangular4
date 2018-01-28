@@ -7,11 +7,13 @@ import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './signUp/signUp.component';
 import {HomeComponent} from './home/home.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ApiService} from './api/api.service';
+import {ApiService} from './services/api.service';
 import {HttpModule} from '@angular/http';
 import {ProductComponent} from './product/product.component';
 import {ProductResolver} from './product/products.resolver';
 import {RateClassPipe} from './product/product-rate.pipe';
+import {AppCookieService} from './services/cookie.service';
+import {CookieService} from 'ngx-cookie-service';
 
 
 const routes: Routes = [
@@ -67,6 +69,8 @@ const routes: Routes = [
     Title,
     ApiService,
     ProductResolver,
+    AppCookieService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
