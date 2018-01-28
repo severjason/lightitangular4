@@ -3,11 +3,13 @@ import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {matchOtherValidator} from '../shared/matchOtherValidator';
 import {passwordValidation} from '../shared/passwordValidation';
-import {ApiService} from '../api/api.service';
+import {ApiService} from '../services/api.service';
+import {IAppError} from '../interfaces/api.interface';
 
 @Component({
   templateUrl: './signUp.component.html',
 })
+
 export class SignUpComponent implements OnInit {
 
   private title = 'SignUp page';
@@ -15,7 +17,10 @@ export class SignUpComponent implements OnInit {
   public username: AbstractControl;
   public password: AbstractControl;
   public passwordConfirmation: AbstractControl;
-  public error: Error;
+  public error: IAppError = {
+    status: false,
+    message: '',
+  };
 
   constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
     this.signUpForm = fb.group({
@@ -35,20 +40,44 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle(this.title);
+    this.onChanges();
+  }
+
+  private onChanges(): void {
+    this.signUpForm.valueChanges.subscribe(() => {
+      this.clearError();
+    });
+  }
+
+  private clearError(): void {
+    this.error = {
+      status: false,
+      message: '',
+    }
+  }
+
+  private setError(errorMessage: string): void {
+    this.signUpForm.controls['password'].reset();
+    this.signUpForm.controls['passwordConfirmation'].reset();
+    this.error = {
+      status: true,
+      message: errorMessage
+    }
   }
 
   public onSubmit(value: any): void {
+    this.clearError();
     this.apiService.register(value)
       .subscribe(
-        data => {
-          if (data.status) {
-            console.log(`Ok - ${data}`);
+        response => {
+          if (response.success) {
+            console.log(`Ok - ${response.token}`);
           } else {
-            this.error = data.message;
+            this.setError(response.message);
           }
         },
         error => {
-          this.error = error.statusText;
+          this.setError(error.statusText);
         }
       )
   }
