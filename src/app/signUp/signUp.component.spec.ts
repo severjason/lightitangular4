@@ -3,7 +3,7 @@ import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {async} from 'q';
 import {By, Title} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ApiService} from '../api/api.service';
+import {ApiService} from '../services/api.service';
 import {HttpModule} from '@angular/http';
 
 describe('SignUp Form Component', () => {

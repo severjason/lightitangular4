@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Resolve} from '@angular/router';
-import {ApiService} from '../api/api.service';
+import {ApiService} from '../services/api.service';
 import {Observable} from 'rxjs/Observable';
-import {IProduct} from '../api/api.interface';
+import {IAppProduct} from '../interfaces/api.interface';
 
 @Injectable()
-export class ProductResolver implements Resolve<Observable<IProduct[]>> {
+export class ProductResolver implements Resolve<Observable<IAppProduct[]>> {
 
   constructor(private apiService: ApiService) {}
 

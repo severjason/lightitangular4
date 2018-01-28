@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService} from '../api/api.service';
-import {IProduct, IReview} from '../api/api.interface';
+import {ApiService} from '../services/api.service';
+import {IAppProduct, IAppReview} from '../interfaces/api.interface';
 
 @Component({
   templateUrl: './product.component.html',
@@ -13,9 +13,9 @@ export class ProductComponent implements OnInit {
 
   private _pageTitle = 'Product | ';
   private _id = 0;
-  private _products: IProduct[];
-  public product: IProduct;
-  public reviews: IReview[];
+  private _products: IAppProduct[];
+  public product: IAppProduct;
+  public reviews: IAppReview[];
   public error: any;
 
   constructor(
