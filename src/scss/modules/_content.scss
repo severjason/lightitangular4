@@ -45,10 +45,22 @@
 
     &.white {
       background-color: white;
-      border: solid $gray;
+      border: 1px solid $gray;
     }
   }
   .star {
     color: $star-color;
+  }
+}
+
+.error-container {
+  margin-top: $error-height / 2;
+  min-height: $error-height;
+
+  .error {
+    border: 1px solid $gray;
+    min-height: $error-height;
+    line-height: $error-height;
+    overflow-wrap: break-word;
   }
 }
