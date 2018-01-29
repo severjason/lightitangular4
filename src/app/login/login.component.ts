@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../services/api.service';
 import {IAppError} from '../interfaces/api.interface';
+import {AppCookieService} from '../services/cookie.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -19,7 +20,10 @@ export class LoginComponent implements OnInit {
     message: '',
   };
 
-  constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
+  constructor(private titleService: Title,
+              private fb: FormBuilder,
+              private apiService: ApiService,
+              private cookieService: AppCookieService) {
     this.loginForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
@@ -64,7 +68,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (response: any) => {
           if (response.success) {
-            console.log(`Ok - ${response.token}`);
+            console.log(`Ok - ${this.username + '___' + response.token}`);
+            this.cookieService.save(this.username + '', response.token);
           } else {
             this.setError(response.message);
           }
