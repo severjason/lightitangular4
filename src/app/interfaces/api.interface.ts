@@ -21,3 +21,8 @@ export interface IAppError {
   status: boolean,
   message: string,
 }
+
+export interface IUser {
+  username: string,
+  password: string
+}
