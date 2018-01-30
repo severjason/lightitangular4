@@ -3,12 +3,10 @@
     <a class="nav-link" [routerLink]="['/all-products']" routerLinkActive="active-route">All products</a>
   </div>
   <div class="row justify-content-end">
-    <!--
-        <span *ngIf="loggedIn">{{getUserName()}}</span>
-    -->
+    <span *ngIf="loggedIn()" class="nav-link font-weight-bold"><i class="fa fa-user-o" aria-hidden="true"></i> {{getUsername()}}</span>
     <a *ngIf="!loggedIn()" class="nav-link " [routerLink]="['/sign-up']" routerLinkActive="active-route">Sign Up</a>
     <a *ngIf="!loggedIn()" class="nav-link" [routerLink]="['/login']" routerLinkActive="active-route">Login</a>
-    <a *ngIf="loggedIn()" class="nav-link active-route" (click)="onLogout()">Logout</a>
+    <a *ngIf="loggedIn()" class="nav-link logout-link" (click)="onLogout()" tabindex="">Logout</a>
     <!--
         <a class="nav-link disabled" href="#">Logout</a>
     -->

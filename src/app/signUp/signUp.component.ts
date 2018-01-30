@@ -5,6 +5,7 @@ import {matchOtherValidator} from '../shared/matchOtherValidator';
 import {passwordValidation} from '../shared/passwordValidation';
 import {IAppError} from '../interfaces/api.interface';
 import {AuthService} from '../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   templateUrl: './signUp.component.html',
@@ -12,7 +13,8 @@ import {AuthService} from '../services/auth.service';
 
 export class SignUpComponent implements OnInit {
 
-  private title = 'SignUp page';
+  private _title = 'SignUp page';
+  private _signedUp: boolean;
   public signUpForm: FormGroup;
   public username: AbstractControl;
   public password: AbstractControl;
@@ -22,7 +24,10 @@ export class SignUpComponent implements OnInit {
     message: '',
   };
 
-  constructor(private titleService: Title, private fb: FormBuilder, private auth: AuthService) {
+  constructor(private titleService: Title,
+              private fb: FormBuilder,
+              private auth: AuthService,
+              private router: Router) {
     this.signUpForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.compose([
@@ -36,10 +41,11 @@ export class SignUpComponent implements OnInit {
     this.username = this.signUpForm.controls['username'];
     this.password = this.signUpForm.controls['password'];
     this.passwordConfirmation = this.signUpForm.controls['passwordConfirmation'];
+    this._signedUp = false;
   }
 
   ngOnInit() {
-    this.titleService.setTitle(this.title);
+    this.titleService.setTitle(this._title);
     this.onChanges();
   }
 
@@ -65,13 +71,28 @@ export class SignUpComponent implements OnInit {
     }
   }
 
+  public signedUp(): boolean {
+    return this._signedUp;
+  }
+
+  public getUsername(): string | boolean {
+    return this.auth.getUserName();
+  }
+
   public onSubmit(value: any): void {
     this.clearError();
     this.auth.register(value)
       .subscribe(
         response => {
           if (response.success) {
-            console.log(`Ok - ${response.token}`);
+            this.auth.save(this.username.value.toString(), response.token);
+            if (this.auth.loggedIn()) {
+              this._signedUp = true;
+              setTimeout(() => {
+                this.router.navigate(['/']);
+                this._signedUp = false;
+              }, 3000);
+            }
           } else {
             this.setError(response.message);
           }

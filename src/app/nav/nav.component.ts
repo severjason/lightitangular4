@@ -23,8 +23,7 @@ export class NavComponent implements OnInit {
     return this.auth.loggedIn();
   }
 
-  /*
   public getUsername(): string | boolean {
     return this.auth.getUserName();
-  }*/
+  }
 }

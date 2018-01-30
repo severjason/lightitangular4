@@ -25,7 +25,6 @@ export class AuthService {
   public save(username: string, token: string): void {
     this.cs.set(this.usernameCookie, username);
     this.cs.set(this.tokenCookie, token);
-    this.router.navigate(['/']);
   }
 
   private delete(): void {
