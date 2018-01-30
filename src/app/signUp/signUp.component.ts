@@ -3,8 +3,8 @@ import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {matchOtherValidator} from '../shared/matchOtherValidator';
 import {passwordValidation} from '../shared/passwordValidation';
-import {ApiService} from '../services/api.service';
 import {IAppError} from '../interfaces/api.interface';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   templateUrl: './signUp.component.html',
@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
     message: '',
   };
 
-  constructor(private titleService: Title, private fb: FormBuilder, private apiService: ApiService) {
+  constructor(private titleService: Title, private fb: FormBuilder, private auth: AuthService) {
     this.signUpForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.compose([
@@ -67,7 +67,7 @@ export class SignUpComponent implements OnInit {
 
   public onSubmit(value: any): void {
     this.clearError();
-    this.apiService.register(value)
+    this.auth.register(value)
       .subscribe(
         response => {
           if (response.success) {
