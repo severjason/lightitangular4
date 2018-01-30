@@ -22,31 +22,35 @@ export class ApiService {
   constructor(private http: Http, private sanitizer: DomSanitizer) {
   }
 
+  public get loginUrl(): string {
+    return this._loginUrl;
+  }
+
+  public get registerUrl(): string {
+    return this._registerUrl;
+  }
+
+  public get apiUrl(): string {
+    return this._apiUrl;
+  }
+
+  public get reviewsUrl(): string {
+    return this._reviewsUrl;
+  }
+
+  public get productsUrl(): string {
+    return this._productsUrl;
+  }
+
   public getProducts(): Observable<IAppProduct[]> {
     return this.http
-      .get(this._apiUrl + this._productsUrl)
+      .get(this.apiUrl + this.productsUrl)
       .map((res: Response) => <IAppProduct[]>res.json())
       .catch(ApiService.handleError);
   }
 
-  public register(newUser: any): Observable<any> {
-    return this.http.post(this._apiUrl + this._registerUrl, {
-        username: this.sanitizer.sanitize(SecurityContext.HTML, newUser.username),
-        password: newUser.password,
-      }).map((res: Response) => res.json())
-      .catch(ApiService.handleError);
-  }
-
-  public login(user: any): Observable<any> {
-    return this.http.post(this._apiUrl + this._loginUrl, {
-      username: this.sanitizer.sanitize(SecurityContext.HTML, user.username),
-      password: user.password,
-    }).map((res: Response) => res.json())
-      .catch(ApiService.handleError);
-  }
-
   public getReviews(productId: number): Observable<any> {
-    return this.http.get(this._apiUrl + this._reviewsUrl + `${productId}`)
+    return this.http.get(this.apiUrl + this.reviewsUrl + `${productId}`)
       .map((res: Response) => res.json())
       .catch(ApiService.handleError);
   }
