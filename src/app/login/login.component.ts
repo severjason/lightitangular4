@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ApiService} from '../services/api.service';
 import {IAppError} from '../interfaces/api.interface';
-import {AppCookieService} from '../services/cookie.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private titleService: Title,
               private fb: FormBuilder,
-              private apiService: ApiService,
-              private cookieService: AppCookieService) {
+              private auth: AuthService) {
     this.loginForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
@@ -64,12 +62,12 @@ export class LoginComponent implements OnInit {
 
     this.clearError();
 
-    this.apiService.login(value)
+    this.auth.login(value)
       .subscribe(
         (response: any) => {
           if (response.success) {
-            console.log(`Ok - ${this.username + '___' + response.token}`);
-            this.cookieService.save(this.username + '', response.token);
+            console.log(`Ok - ${this.username.value.toString() + '___' + response.token}`);
+            this.auth.save(this.username.value.toString(), response.token);
           } else {
             this.setError(response.message);
           }

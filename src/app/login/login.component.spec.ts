@@ -5,6 +5,8 @@ import {By, Title} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ApiService} from '../services/api.service';
 import {HttpModule} from '@angular/http';
+import {AuthService} from '../services/auth.service';
+import {CookieService} from 'ngx-cookie-service';
 
 describe('Login Form Component', () => {
 
@@ -27,6 +29,8 @@ describe('Login Form Component', () => {
       providers: [
         Title,
         ApiService,
+        AuthService,
+        CookieService
       ],
     }).compileComponents();
   }));
