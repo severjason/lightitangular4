@@ -3,7 +3,7 @@
     Sign up
   </h3>
 
-  <form *ngIf="!signedUp()" [formGroup]="signUpForm"
+  <form *ngIf="!signedUp" [formGroup]="signUpForm"
         (ngSubmit)="onSubmit(signUpForm.value)">
     <div class="form-group"
          [class.has-danger]="!username.valid && (username.touched || username.dirty)"
@@ -76,8 +76,11 @@
       [disabled]="!signUpForm.valid">Sign Up
     </button>
   </form>
-  <div *ngIf="signedUp()">
-    User {{getUsername()}} successfully signed up. You will be redirected to main page within 3 sec...
+  <div *ngIf="signedUp" class="error-container">
+    <div class="text-center signed-up-message">
+      User <span class="font-weight-bold">{{getUsername()}}</span> successfully signed up.
+      You will be redirected to main page within 3 sec...
+    </div>
   </div>
   <div class="error-container">
     <div class="error text-center text-danger" *ngIf="error.status">

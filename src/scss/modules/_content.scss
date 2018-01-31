@@ -53,14 +53,25 @@
   }
 }
 
+.info-message {
+  border: 1px solid $gray;
+  min-height: $info-message-height;
+  line-height: $info-message-height;
+  overflow-wrap: break-word;
+}
+
 .error-container {
-  margin-top: $error-height / 2;
-  min-height: $error-height;
+  margin-top: $info-message-height / 2;
+  min-height: $info-message-height;
 
   .error {
-    border: 1px solid $gray;
-    min-height: $error-height;
-    line-height: $error-height;
-    overflow-wrap: break-word;
+    @extend .info-message;
   }
 }
+
+.signed-up-message {
+  @extend .info-message;
+  color: $green;
+  margin-top: $div-padding;
+}
+

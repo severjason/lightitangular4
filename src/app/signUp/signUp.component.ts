@@ -71,7 +71,7 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  public signedUp(): boolean {
+  public get signedUp(): boolean {
     return this._signedUp;
   }
 
