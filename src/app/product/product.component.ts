@@ -27,6 +27,7 @@ export class ProductComponent implements OnInit {
   constructor(
     private titleService: Title,
     private api: ApiService,
+    private auth: AuthService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router) {
@@ -79,11 +80,15 @@ export class ProductComponent implements OnInit {
     )
   }
 
-  setRating(value: number): void {
+  public userLoggedIn(): boolean {
+    return this.auth.loggedIn();
+  }
+
+  public setRating(value: number): void {
     this.rating = value;
   }
 
-  onSubmit(value: any): void {
+  public onSubmit(value: any): void {
     this.api.sendReview(value.reviewText, this.rating, this.id)
       .subscribe(
         res => {

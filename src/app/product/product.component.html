@@ -1,3 +1,8 @@
+<div *ngIf="!product" class="loader" style="left: 50%; margin-left: -60px; margin-top: 120px;
+    position: absolute;
+    width: 120px;">
+  <img src="../../assets/loading.gif" alt="loading gif">
+</div>
 <div class="product-details row justify-content-around">
   <div class="col">
     <h4>{{product.title}}</h4>
@@ -13,6 +18,7 @@
   <div class="col">
     <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(reviewForm.value)">
       <h4>Your review:</h4>
+      <span class="tips text-muted">*You should login to post review</span>
       <hr/>
       <div class="rating">
         <div class="rating-wrap">
@@ -34,7 +40,7 @@
         placeholder="Enter text here..."></textarea>
       <button
         class="btn btn-primary"
-        [disabled]="!reviewForm.valid"
+        [disabled]="!reviewForm.valid || !userLoggedIn()"
       >Submit
       </button>
     </form>
