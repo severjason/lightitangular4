@@ -3,7 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IAppError} from '../interfaces/api.interface';
 import {AuthService} from '../services/auth.service';
-import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   templateUrl: './login.component.html',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private titleService: Title,
               private fb: FormBuilder,
               private auth: AuthService,
-              private router: Router) {
+              private loc: Location) {
     this.loginForm = fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         (response: any) => {
           if (response.success) {
             this.auth.save(this.username.value.toString(), response.token);
-            this.router.navigate(['/']);
+            this.loc.back();
           } else {
             this.setError(response.message);
           }
