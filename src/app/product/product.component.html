@@ -11,38 +11,55 @@
     <p>{{product.text}}</p>
   </div>
   <div class="col">
-    <h4>Your review:</h4>
-    <hr/>
-    <div class="rating">
-      <div class="rating-wrap">
-        <input class="rating-input" id="rating-5" type="radio" name="rating" value="5">
-        <label class="rating-ico fa fa-star-o fa-lg" for="rating-5" title="5 stars"></label>
-        <input class="rating-input" id="rating-4" type="radio" name="rating" value="4">
-        <label class="rating-ico fa fa-star-o fa-lg" for="rating-4" title="4 stars"></label>
-        <input class="rating-input" id="rating-3" type="radio" name="rating" value="3">
-        <label class="rating-ico fa fa-star-o fa-lg" for="rating-3" title="3 stars"></label>
-        <input class="rating-input" id="rating-2" type="radio" name="rating" value="2">
-        <label class="rating-ico fa fa-star-o fa-lg" for="rating-2" title="2 stars"></label>
-        <input class="rating-input" id="rating-1" type="radio" name="rating" value="1">
-        <label class="rating-ico fa fa-star-o fa-lg" for="rating-1" title="1 star"></label>
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(reviewForm.value)">
+      <h4>Your review:</h4>
+      <hr/>
+      <div class="rating">
+        <div class="rating-wrap">
+          <input class="rating-input" id="rating-5" type="radio" name="rating" value="5">
+          <label (click)="setRating(5)" class="rating-ico fa fa-star-o fa-lg" for="rating-5" title="5 stars"></label>
+          <input class="rating-input" id="rating-4" type="radio" name="rating" value="4">
+          <label (click)="setRating(4)" class="rating-ico fa fa-star-o fa-lg" for="rating-4" title="4 stars"></label>
+          <input class="rating-input" id="rating-3" type="radio" name="rating" value="3">
+          <label (click)="setRating(3)" class="rating-ico fa fa-star-o fa-lg" for="rating-3" title="3 stars"></label>
+          <input class="rating-input" id="rating-2" type="radio" name="rating" value="2">
+          <label (click)="setRating(2)" class="rating-ico fa fa-star-o fa-lg" for="rating-2" title="2 stars"></label>
+          <input class="rating-input" id="rating-1" type="radio" name="rating" value="1">
+          <label (click)="setRating(1)" class="rating-ico fa fa-star-o fa-lg" for="rating-1" title="1 star"></label>
+        </div>
       </div>
-    </div>
-    <textarea class="form-control" placeholder="Enter text here..."></textarea>
-    <button class="btn btn-primary">Submit</button>
+      <textarea
+        [formControl]="reviewText"
+        class="form-control"
+        placeholder="Enter text here..."></textarea>
+      <button
+        class="btn btn-primary"
+        [disabled]="!reviewForm.valid"
+      >Submit
+      </button>
+    </form>
     <hr/>
     <h5>Reviews:</h5>
-    <div *ngIf="error" class="text-danger">
-      Can`t load reviews
+    <div *ngIf="!error && !reviews" class="loader" style="left: 50%; margin-left: -60px; margin-top: 120px;
+    position: absolute;
+    width: 120px;">
+      <img src="../../assets/loading.gif" alt="loading gif">
     </div>
+    <div *ngIf="error" class="error-container">
+      <div class="error text-center text-danger">
+        Can`t load reviews
+      </div>
+    </div>
+
     <div *ngIf="reviews">
       <div *ngFor="let review of reviews " class="review" [ngClass]="{'white' : (reviews.indexOf(review) % 2 !== 0)}">
         <div class="row">
           <div class="col-sm">
-            <i *ngFor="let star of (review.rate | rateClass)" class="star fa {{star}}"  aria-hidden="true"></i>
+            <i *ngFor="let star of (review.rate | rateClass)" class="star fa {{star}}" aria-hidden="true"></i>
             &nbsp;by&nbsp;<span class="font-weight-bold">{{review.created_by.username}}</span>
           </div>
           <div class="col-sm font-italic">
-            <span class="float-right">{{review.created_at | date: 'HH:mm | dd MMM yyyy'}}</span>
+            <span class="review-date">{{review.created_at | date: 'HH:mm | dd MMM yyyy'}}</span>
           </div>
         </div>
 
