@@ -43,6 +43,10 @@
     padding: 1.5rem;
     overflow-wrap: break-word;
 
+    .review-date {
+      float: right;
+    }
+
     &.white {
       background-color: white;
       border: 1px solid $gray;

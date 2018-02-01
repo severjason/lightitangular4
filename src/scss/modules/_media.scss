@@ -1,4 +1,4 @@
-@media all and (max-width: 640px) {
+@media all and (max-width: 1024px) {
   .product-details {
     .col {
       flex-basis: 100%;
@@ -6,6 +6,15 @@
   }
 }
 
+@media all and (max-width: 480px) {
+  .product-details {
+    .review {
+      .review-date {
+        float: left;
+      }
+    }
+  }
+}
 
 @media all and (min-width: 480px){
   .review {
