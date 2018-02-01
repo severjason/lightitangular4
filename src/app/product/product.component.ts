@@ -3,7 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../services/api.service';
 import {IAppProduct, IAppReview} from '../interfaces/api.interface';
-import {AbstractControl, Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 
 @Component({
@@ -66,7 +66,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle(this.pageTitle + this.id);
     if (!this.products[this.id - 1]) {
-      this.router.navigate(['all-products']);
+      this.router.navigate(['/']);
     }
     this.product = this.products[this.id - 1];
     this.api.getReviews(this.id)
