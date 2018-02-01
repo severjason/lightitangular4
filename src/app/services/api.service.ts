@@ -55,4 +55,13 @@ export class ApiService {
       .catch(ApiService.handleError);
   }
 
+  public sendReview(reviewText: string, reviewRate: number, productId: number): Observable<any> {
+    return this.http.post(this.apiUrl + this.reviewsUrl + `${productId}`, {
+      rate: reviewRate,
+      text: this.sanitizer.sanitize(SecurityContext.HTML, reviewText),
+    })
+      .map((res: Response) => res.json())
+      .catch(ApiService.handleError);
+  }
+
 }
