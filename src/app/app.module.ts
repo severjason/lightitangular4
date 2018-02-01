@@ -16,6 +16,8 @@ import {RateClassPipe} from './product/product-rate.pipe';
 import {AuthService} from './services/auth.service';
 import {CookieService} from 'ngx-cookie-service';
 import {AuthGuardService} from './services/authguard.service';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptor} from './interceptors/token.interceptor';
 
 
 const routes: Routes = [
@@ -77,6 +79,11 @@ const routes: Routes = [
     AuthService,
     CookieService,
     AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
