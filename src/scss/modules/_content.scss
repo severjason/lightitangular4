@@ -10,7 +10,9 @@
   margin-top: $app-loader-padding;
   position: absolute;
   width: $app-loader-width;
-} // .loader
+}
+
+// .loader
 
 .product-container {
   padding-top: $product-container-padding;
@@ -32,8 +34,19 @@
     margin: 0 auto;
   }
 
+  .col {
+    margin-bottom: $product-margin;
+  }
+
   button {
     margin-top: $button-margin;
+  }
+
+  h4 {
+    margin-bottom: 0;
+  }
+  .tips {
+    font-size: small;
   }
 
   .review {
@@ -80,7 +93,6 @@
   .rating-input:checked ~ .rating-ico:before {
     content: "\f005";
   }
-
 
 }
 
