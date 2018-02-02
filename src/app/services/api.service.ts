@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {IAppProduct} from '../interfaces/api.interface'
 import {DomSanitizer} from '@angular/platform-browser';
+import {AppCookieService} from './cookie.service';
 
 @Injectable()
 export class ApiService {
@@ -19,7 +20,7 @@ export class ApiService {
     return Observable.throw(error.statusText);
   }
 
-  constructor(private http: Http, private sanitizer: DomSanitizer) {
+  constructor(private http: Http, private sanitizer: DomSanitizer, private cs: AppCookieService) {
   }
 
   public get loginUrl(): string {
@@ -59,7 +60,7 @@ export class ApiService {
     return this.http.post(this.apiUrl + this.reviewsUrl + `${productId}`, {
       rate: reviewRate,
       text: this.sanitizer.sanitize(SecurityContext.HTML, reviewText),
-    })
+    }, this.cs.getTokenHeaders())
       .map((res: Response) => res.json())
       .catch(ApiService.handleError);
   }
