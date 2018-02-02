@@ -18,7 +18,7 @@
   <div class="col">
     <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(reviewForm.value)">
       <h4>Your review:</h4>
-      <span class="tips text-muted">*You should login to post review</span>
+      <span *ngIf="!userLoggedIn()" class="tips text-muted">*You should login to post review</span>
       <hr/>
       <div class="rating">
         <div class="rating-wrap">
@@ -43,6 +43,9 @@
         [disabled]="!reviewForm.valid || !userLoggedIn()"
       >Submit
       </button>
+      <div>
+
+      </div>
     </form>
     <hr/>
     <h5>Reviews:</h5>
@@ -58,7 +61,8 @@
     </div>
 
     <div *ngIf="reviews">
-      <div *ngFor="let review of reviews " class="review" [ngClass]="{'white' : (reviews.indexOf(review) % 2 !== 0)}">
+      <div *ngFor="let review of reviews | orderBy: {property: 'created_at', direction: -1}" class="review"
+           [ngClass]="{'white' : (reviews.indexOf(review) % 2 !== 0)}">
         <div class="row">
           <div class="col-sm">
             <i *ngFor="let star of (review.rate | rateClass)" class="star fa {{star}}" aria-hidden="true"></i>

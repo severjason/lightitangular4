@@ -69,15 +69,19 @@ export class ProductComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.product = this.products[this.id - 1];
+    this.getReviews();
+  }
+
+  private getReviews(): void {
     this.api.getReviews(this.id)
       .subscribe(
-      res => {
-        this.reviews = res;
-      },
-      error => {
-        this.error = error;
-      }
-    )
+        res => {
+          this.reviews = res;
+        },
+        error => {
+          this.error = error;
+        }
+      )
   }
 
   public userLoggedIn(): boolean {
@@ -92,11 +96,16 @@ export class ProductComponent implements OnInit {
     this.api.sendReview(value.reviewText, this.rating, this.id)
       .subscribe(
         res => {
-          console.log(res);
+          if (res.success) {
+            this.reviewForm.controls['reviewText'].reset();
+            this.getReviews();
+          } else {
+            console.log(res);
+          }
         },
         error => {
           console.log(error);
         }
-      )
+      );
   }
 }

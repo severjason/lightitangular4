@@ -16,8 +16,8 @@ import {RateClassPipe} from './product/product-rate.pipe';
 import {AuthService} from './services/auth.service';
 import {CookieService} from 'ngx-cookie-service';
 import {AuthGuardService} from './services/authguard.service';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {TokenInterceptor} from './interceptors/token.interceptor';
+import {AppCookieService} from './services/cookie.service';
+import {OrderByPipe} from './product/orderby.pipe';
 
 
 const routes: Routes = [
@@ -62,6 +62,7 @@ const routes: Routes = [
     SignUpComponent,
     LoginComponent,
     RateClassPipe,
+    OrderByPipe,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +72,7 @@ const routes: Routes = [
   ],
   exports: [
     RateClassPipe,
+    OrderByPipe,
   ],
   providers: [
     Title,
@@ -78,12 +80,8 @@ const routes: Routes = [
     ProductResolver,
     AuthService,
     CookieService,
+    AppCookieService,
     AuthGuardService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })
