@@ -8,7 +8,6 @@ import {HttpModule} from '@angular/http';
 import {AuthService} from '../services/auth.service';
 import {CookieService} from 'ngx-cookie-service';
 import {AppCookieService} from '../services/cookie.service';
-import {Location} from '@angular/common';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SignUp Form Component', () => {
@@ -33,7 +32,6 @@ describe('SignUp Form Component', () => {
       providers: [
         Title,
         ApiService,
-        Location,
         AuthService,
         CookieService,
         AppCookieService
