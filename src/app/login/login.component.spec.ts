@@ -7,13 +7,16 @@ import {ApiService} from '../services/api.service';
 import {HttpModule} from '@angular/http';
 import {AuthService} from '../services/auth.service';
 import {CookieService} from 'ngx-cookie-service';
+import {AppCookieService} from '../services/cookie.service';
+import {Location} from '@angular/common';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('Login Form Component', () => {
 
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  let el, passwordInput, usernameInput, submitButton, form;
+  let el, de, passwordInput, usernameInput, submitButton, form;
 
   beforeEach(async(() => {
 
@@ -22,6 +25,7 @@ describe('Login Form Component', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        RouterTestingModule,
       ],
       declarations: [
         LoginComponent
@@ -29,18 +33,23 @@ describe('Login Form Component', () => {
       providers: [
         Title,
         ApiService,
+        Location,
         AuthService,
-        CookieService
+        CookieService,
+        AppCookieService
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    de = fixture.debugElement;
+    el = de.nativeElement;
+
   }));
 
   it('shows error message on empty username', fakeAsync(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    usernameInput = de.query(By.css('#username')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     usernameInput.value = '';
     usernameInput.dispatchEvent(new Event('input'));
@@ -51,11 +60,8 @@ describe('Login Form Component', () => {
   }));
 
   it('no messages if correct username', fakeAsync(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    usernameInput = de.query(By.css('#username')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     usernameInput.value = 'test';
     usernameInput.dispatchEvent(new Event('input'));
@@ -66,11 +72,8 @@ describe('Login Form Component', () => {
   }));
 
   it('shows error message on empty password', fakeAsync(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = '';
     passwordInput.dispatchEvent(new Event('input'));
@@ -81,11 +84,8 @@ describe('Login Form Component', () => {
   }));
 
   it('no messages if correct password', fakeAsync(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = 'test';
     passwordInput.dispatchEvent(new Event('input'));
@@ -96,13 +96,10 @@ describe('Login Form Component', () => {
   }));
 
   it('submit button active only when username and password correct', fakeAsync(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    submitButton = fixture.debugElement.query(By.css('button')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    usernameInput = de.query(By.css('#username')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    submitButton = de.query(By.css('button')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     usernameInput.value = '';
     passwordInput.value = '';
@@ -134,4 +131,3 @@ describe('Login Form Component', () => {
     expect(submitButton.disabled).toBeFalsy();
   }));
 });
-

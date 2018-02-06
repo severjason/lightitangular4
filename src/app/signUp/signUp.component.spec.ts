@@ -5,13 +5,18 @@ import {By, Title} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ApiService} from '../services/api.service';
 import {HttpModule} from '@angular/http';
+import {AuthService} from '../services/auth.service';
+import {CookieService} from 'ngx-cookie-service';
+import {AppCookieService} from '../services/cookie.service';
+import {Location} from '@angular/common';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SignUp Form Component', () => {
 
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
 
-  let el, confirmPasswordInput, passwordInput, usernameInput, submitButton, form;
+  let el, de, confirmPasswordInput, passwordInput, usernameInput, submitButton, form;
 
   beforeEach(async(() => {
 
@@ -20,6 +25,7 @@ describe('SignUp Form Component', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        RouterTestingModule,
       ],
       declarations: [
         SignUpComponent
@@ -27,16 +33,24 @@ describe('SignUp Form Component', () => {
       providers: [
         Title,
         ApiService,
+        Location,
+        AuthService,
+        CookieService,
+        AppCookieService
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(SignUpComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    de = fixture.debugElement;
+    el = de.nativeElement;
+
   }));
 
   it('shows error message on empty username', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    usernameInput = de.query(By.css('#username')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     usernameInput.value = '';
     usernameInput.dispatchEvent(new Event('input'));
@@ -47,11 +61,8 @@ describe('SignUp Form Component', () => {
   }));
 
   it('no messages if correct username', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    usernameInput = de.query(By.css('#username')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     usernameInput.value = 'test';
     usernameInput.dispatchEvent(new Event('input'));
@@ -62,11 +73,8 @@ describe('SignUp Form Component', () => {
   }));
 
   it('shows error message on empty password', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = '';
     passwordInput.dispatchEvent(new Event('input'));
@@ -77,11 +85,8 @@ describe('SignUp Form Component', () => {
   }));
 
   it('shows error if password less then 8 characters', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = 'test';
     passwordInput.dispatchEvent(new Event('input'));
@@ -92,11 +97,8 @@ describe('SignUp Form Component', () => {
   }));
 
   it('shows error if weak password', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = 'test1234';
     passwordInput.dispatchEvent(new Event('input'));
@@ -109,11 +111,8 @@ describe('SignUp Form Component', () => {
   it('shows no error if password has more then 8 characters ' +
     'and contains 1 uppercase character, 1 lowercase characters and 1 digit',
     fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+      passwordInput = de.query(By.css('#password')).nativeElement;
+      form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = 'test1234W';
     passwordInput.dispatchEvent(new Event('input'));
@@ -124,11 +123,8 @@ describe('SignUp Form Component', () => {
   }));
 
   it('shows error message on empty password confirmation', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    confirmPasswordInput = fixture.debugElement.query(By.css('#passwordConfirmation')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    confirmPasswordInput = de.query(By.css('#passwordConfirmation')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     confirmPasswordInput.value = '';
     confirmPasswordInput.dispatchEvent(new Event('input'));
@@ -139,12 +135,9 @@ describe('SignUp Form Component', () => {
   }));
 
   it('shows error message when confirmation password wrong', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    confirmPasswordInput = fixture.debugElement.query(By.css('#passwordConfirmation')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    confirmPasswordInput = de.query(By.css('#passwordConfirmation')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     passwordInput.value = '12345678wW';
     confirmPasswordInput.value = '12345678wW';
@@ -157,14 +150,11 @@ describe('SignUp Form Component', () => {
   }));
 
   it('submit button active only when all fields are correct', fakeAsync(() => {
-    fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement.nativeElement;
-    usernameInput = fixture.debugElement.query(By.css('#username')).nativeElement;
-    passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    confirmPasswordInput = fixture.debugElement.query(By.css('#passwordConfirmation')).nativeElement;
-    submitButton = fixture.debugElement.query(By.css('button')).nativeElement;
-    form = fixture.debugElement.query(By.css('form')).nativeElement;
+    usernameInput = de.query(By.css('#username')).nativeElement;
+    passwordInput = de.query(By.css('#password')).nativeElement;
+    confirmPasswordInput = de.query(By.css('#passwordConfirmation')).nativeElement;
+    submitButton = de.query(By.css('button')).nativeElement;
+    form = de.query(By.css('form')).nativeElement;
     fixture.detectChanges();
     usernameInput.value = '';
     passwordInput.value = '';

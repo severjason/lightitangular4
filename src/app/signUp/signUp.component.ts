@@ -75,6 +75,10 @@ export class SignUpComponent implements OnInit {
     return this._signedUp;
   }
 
+  public set signedUp(value: boolean) {
+    this._signedUp = value;
+  }
+
   public getUsername(): string | boolean {
     return this.auth.getUserName();
   }
@@ -87,10 +91,10 @@ export class SignUpComponent implements OnInit {
           if (response.success) {
             this.auth.save(this.username.value.toString(), response.token);
             if (this.auth.loggedIn()) {
-              this._signedUp = true;
+              this.signedUp = true;
               setTimeout(() => {
                 this.router.navigate(['/']);
-                this._signedUp = false;
+                this.signedUp = false;
               }, 3000);
             }
           } else {
