@@ -11,7 +11,7 @@ import {Location} from '@angular/common';
 
 export class LoginComponent implements OnInit {
 
-  private title = 'Login page';
+  private _title = 'Login page';
   public loginForm: FormGroup;
   public username: AbstractControl;
   public password: AbstractControl;
@@ -20,11 +20,11 @@ export class LoginComponent implements OnInit {
     message: '',
   };
 
-  constructor(private titleService: Title,
-              private fb: FormBuilder,
-              private auth: AuthService,
-              private loc: Location) {
-    this.loginForm = fb.group({
+  constructor(private _titleService: Title,
+              private _fb: FormBuilder,
+              private _auth: AuthService,
+              private _loc: Location) {
+    this.loginForm = this.fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
     });
@@ -33,6 +33,25 @@ export class LoginComponent implements OnInit {
     this.password = this.loginForm.controls['password'];
   }
 
+  private get titleService(): Title {
+    return this._titleService;
+  }
+
+  private get title(): string {
+    return this._title;
+  }
+
+  private get fb(): FormBuilder {
+    return this._fb;
+  }
+
+  private get auth(): AuthService {
+    return this._auth;
+  }
+
+  private get loc(): Location {
+    return this._loc;
+  }
 
   ngOnInit() {
     this.titleService.setTitle(this.title);

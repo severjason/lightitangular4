@@ -5,12 +5,24 @@ import {Headers, RequestOptions} from '@angular/http';
 @Injectable()
 export class AppCookieService {
 
-  private usernameCookie: string;
-  private tokenCookie: string;
+  private _usernameCookie: string;
+  private _tokenCookie: string;
 
-  constructor(private cs: CookieService) {
-    this.usernameCookie = 'username';
-    this.tokenCookie = 'token';
+  constructor(private cookieService: CookieService) {
+    this._usernameCookie = 'username';
+    this._tokenCookie = 'token';
+  }
+
+  private get cs(): CookieService {
+    return this.cookieService;
+  }
+
+  private get usernameCookie(): string {
+    return this._usernameCookie;
+  }
+
+  private get tokenCookie(): string {
+    return this._tokenCookie;
   }
 
   public saveUsername(username: string): void {
@@ -24,6 +36,7 @@ export class AppCookieService {
   public delete(): void {
     this.cs.delete(this.usernameCookie);
     this.cs.delete(this.tokenCookie);
+    this.cs.deleteAll();
   }
 
   public getUserName(): string | boolean {

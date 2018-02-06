@@ -10,11 +10,31 @@ import {AppCookieService} from './cookie.service';
 @Injectable()
 export class AuthService {
 
-  constructor(private cs: AppCookieService,
-              private api: ApiService,
-              private http: Http,
-              private sanitizer: DomSanitizer,
-              private router: Router) {
+  constructor(private appCookieService: AppCookieService,
+              private _api: ApiService,
+              private _http: Http,
+              private _sanitizer: DomSanitizer,
+              private _router: Router) {
+  }
+
+  public get api(): ApiService {
+    return this._api;
+  }
+
+  public get http(): Http {
+    return this._http;
+  }
+
+  public get sanitizer(): DomSanitizer {
+    return this._sanitizer;
+  }
+
+  public get cs(): AppCookieService {
+    return this.appCookieService;
+  }
+
+  public get router(): Router {
+    return this._router;
   }
 
   public login(user: IUser) {

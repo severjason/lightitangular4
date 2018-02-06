@@ -20,7 +20,7 @@ export class ApiService {
     return Observable.throw(error.statusText);
   }
 
-  constructor(private http: Http, private sanitizer: DomSanitizer, private cs: AppCookieService) {
+  constructor(private _http: Http, private _sanitizer: DomSanitizer, private appCookieService: AppCookieService) {
   }
 
   public get loginUrl(): string {
@@ -41,6 +41,18 @@ export class ApiService {
 
   public get productsUrl(): string {
     return this._productsUrl;
+  }
+
+  public get http(): Http {
+    return this._http;
+  }
+
+  public get sanitizer(): DomSanitizer {
+    return this._sanitizer;
+  }
+
+  public get cs(): AppCookieService {
+    return this.appCookieService;
   }
 
   public getProducts(): Observable<IAppProduct[]> {

@@ -9,8 +9,12 @@ export class ProductResolver implements Resolve<Observable<IAppProduct[]>> {
 
   constructor(private apiService: ApiService) {}
 
+  private get api(): ApiService {
+    return this.apiService;
+  }
+
   resolve() {
-    return this.apiService.getProducts().catch(() => {
+    return this.api.getProducts().catch(() => {
       return Observable.of('data not available at this time');
       // return Observable.empty();
     });
