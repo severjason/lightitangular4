@@ -13,15 +13,28 @@ export class HomeComponent implements OnInit {
   public products: IAppProduct[];
   public error: string;
 
-  constructor(private titleService: Title, private apiService: ApiService) {}
+  constructor(private _titleService: Title, private apiService: ApiService) {
+  }
 
   ngOnInit() {
-    this.titleService.setTitle(this._title);
+    this.titleService.setTitle(this.title);
     this.getProducts();
   }
 
+  private get titleService(): Title {
+    return this._titleService;
+  }
+
+  private get title(): string {
+    return this._title;
+  }
+
+  private get api(): ApiService {
+    return this.apiService;
+  }
+
   public getProducts(): IAppProduct[] | void {
-    this.apiService.getProducts()
+    this.api.getProducts()
       .subscribe(
         res => {
           this.products = res;
