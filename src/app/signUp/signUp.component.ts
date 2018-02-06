@@ -5,7 +5,6 @@ import {matchOtherValidator} from '../shared/matchOtherValidator';
 import {passwordValidation} from '../shared/passwordValidation';
 import {IAppError} from '../interfaces/api.interface';
 import {AuthService} from '../services/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   templateUrl: './signUp.component.html',
@@ -24,11 +23,10 @@ export class SignUpComponent implements OnInit {
     message: '',
   };
 
-  constructor(private titleService: Title,
-              private fb: FormBuilder,
-              private auth: AuthService,
-              private router: Router) {
-    this.signUpForm = fb.group({
+  constructor(private _titleService: Title,
+              private _fb: FormBuilder,
+              private _auth: AuthService) {
+    this.signUpForm = this.fb.group({
       'username': ['', Validators.required],
       'password': ['', Validators.compose([
         Validators.required,
@@ -41,11 +39,27 @@ export class SignUpComponent implements OnInit {
     this.username = this.signUpForm.controls['username'];
     this.password = this.signUpForm.controls['password'];
     this.passwordConfirmation = this.signUpForm.controls['passwordConfirmation'];
-    this._signedUp = false;
+    this.signedUp = false;
+  }
+
+  private get titleService(): Title {
+    return this._titleService;
+  }
+
+  private get title(): string {
+    return this._title;
+  }
+
+  private get fb(): FormBuilder {
+    return this._fb;
+  }
+
+  private get auth(): AuthService {
+    return this._auth;
   }
 
   ngOnInit() {
-    this.titleService.setTitle(this._title);
+    this.titleService.setTitle(this.title);
     this.onChanges();
   }
 
@@ -89,14 +103,7 @@ export class SignUpComponent implements OnInit {
       .subscribe(
         response => {
           if (response.success) {
-            this.auth.save(this.username.value.toString(), response.token);
-            if (this.auth.loggedIn()) {
               this.signedUp = true;
-              setTimeout(() => {
-                this.router.navigate(['/']);
-                this.signedUp = false;
-              }, 3000);
-            }
           } else {
             this.setError(response.message);
           }
