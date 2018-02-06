@@ -13,7 +13,7 @@ import {AuthService} from '../services/auth.service';
 
 export class ProductComponent implements OnInit {
 
-  private _pageTitle: string;
+  private _title: string;
   private _id: number;
   private _products: IAppProduct[];
   private _rating: number;
@@ -24,29 +24,52 @@ export class ProductComponent implements OnInit {
   public reviews: IAppReview[];
   public error: any;
 
-  constructor(
-    private titleService: Title,
-    private api: ApiService,
-    private auth: AuthService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router) {
+  constructor(private _titleService: Title,
+              private _api: ApiService,
+              private _auth: AuthService,
+              private _fb: FormBuilder,
+              private _route: ActivatedRoute,
+              private _router: Router) {
     this._id = +this.route.snapshot.paramMap.get('id');
-    this._pageTitle = 'Product | ';
+    this._title = 'Product | ';
     this._products = this.route.snapshot.data.products;
-    this.reviewForm = fb.group({
+    this.reviewForm = this.fb.group({
       'reviewText': ['', Validators.required],
     });
     this.reviewText = this.reviewForm.controls['reviewText'];
     this._rating = 0;
   }
 
+  private get titleService(): Title {
+    return this._titleService;
+  }
+
+  private get api(): ApiService {
+    return this._api;
+  }
+
+  private get fb(): FormBuilder {
+    return this._fb;
+  }
+
+  private get auth(): AuthService {
+    return this._auth;
+  }
+
+  private get route(): ActivatedRoute {
+    return this._route;
+  }
+
+  private get router(): Router {
+    return this._router;
+  }
+
   private get id(): number {
     return this._id;
   }
 
-  private get pageTitle(): string {
-    return this._pageTitle;
+  private get title(): string {
+    return this._title;
   }
 
   private get products(): IAppProduct[] {
@@ -64,7 +87,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle(this.pageTitle + this.id);
+    this.titleService.setTitle(this.title + this.id);
     if (!this.products[this.id - 1]) {
       this.router.navigate(['/']);
     }
