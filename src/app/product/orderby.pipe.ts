@@ -7,8 +7,8 @@ import {IAppReview} from '../interfaces/api.interface';
 
 export class OrderByPipe implements PipeTransform {
 
-  transform(array: Array<IAppReview>, args?: any): any {
-    array.sort((a: IAppReview, b: IAppReview) => {
+  transform(array: Array<any>, args?: any): any {
+    array.sort((a: any, b: any) => {
       if (a[args.property] < b[args.property]) {
         return -1 * args.direction;
       } else if (a[args.property] > b[args.property]) {
