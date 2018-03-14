@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     return this.apiService;
   }
 
-  public getProducts(): IAppProduct[] | void {
+  public getProducts(): void {
     this.api.getProducts()
       .subscribe(
         res => {
