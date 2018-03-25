@@ -5,69 +5,64 @@
 
   <form *ngIf="!signedUp" [formGroup]="signUpForm"
         (ngSubmit)="onSubmit(signUpForm.value)">
-    <div class="form-group"
-         [class.has-danger]="!username.valid && (username.touched || username.dirty)"
-         [class.has-success]="username.valid && (username.touched || username.dirty)">
+    <div class="form-group">
       <label class="form-control-label" for="username">Username</label>
       <input
         class="form-control"
         id="username"
         placeholder="Enter your username"
+        autocomplete="username"
         [formControl]="username"
-        [class.form-control-danger]="!username.valid && (username.touched || username.dirty)"
-        [class.form-control-success]="username.valid && (username.touched || username.dirty)">
+        [class.is-invalid]="!username.valid && (username.touched || username.dirty)"
+        [class.is-valid]="username.valid && (username.touched || username.dirty)">
       <div *ngIf="!username.valid && (username.touched || username.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Please enter your name
       </div>
     </div>
-    <div class="form-group"
-         [class.has-danger]="(password.hasError('required') || password.hasError('minLength'))
-         && (password.touched || password.dirty)"
-         [class.has-warning]="password.hasError('weak') && (password.touched || password.dirty)"
-         [class.has-success]="password.valid && (password.touched || password.dirty)">
+    <div class="form-group">
       <label class="form-control-label" for="password">Password</label>
       <input
         type="password"
         class="form-control"
         id="password"
         placeholder="Enter your password"
+        autocomplete="new-password"
         [formControl]="password"
-        [class.form-control-danger]="(password.hasError('required') || password.hasError('minLength'))
+        [class.is-invalid]="(
+        password.hasError('required') ||
+        password.hasError('minLength')||
+        password.hasError('weak'))
          && (password.touched || password.dirty)"
-        [class.form-control-warning]="password.hasError('weak') && (password.touched || password.dirty)"
-        [class.form-control-success]="password.valid && (password.touched || password.dirty)">
+        [class.is-valid]="password.valid && (password.touched || password.dirty)">
       <div *ngIf="password.hasError('required') && (password.touched || password.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Password shouldn`t be empty
       </div>
       <div *ngIf="password.hasError('minLength') && (password.touched || password.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Password should contain at least 8 characters
       </div>
       <div *ngIf="password.hasError('weak') && (password.touched || password.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Password should have at least 1 uppercase letter, 1 lowercase letter and 1 digit
       </div>
     </div>
-    <div class="form-group"
-         [class.has-danger]="!passwordConfirmation.valid
-         && (passwordConfirmation.touched || passwordConfirmation.dirty)"
-         [class.has-success]="passwordConfirmation.valid
-         && (passwordConfirmation.touched || passwordConfirmation.dirty)">
+    <div class="form-group">
       <label class="form-control-label" for="password">Confirm your password</label>
       <input
         type="password"
         class="form-control"
         id="passwordConfirmation"
         placeholder="Enter your password once again"
+        autocomplete="new-password"
         [formControl]="signUpForm.controls['passwordConfirmation']"
-        [class.form-control-danger]="!passwordConfirmation.valid
+        [class.is-invalid]="!passwordConfirmation.valid
         && (passwordConfirmation.touched || passwordConfirmation.dirty)"
-        [class.form-control-success]="passwordConfirmation.valid
+        [class.is-valid]="passwordConfirmation.valid
         && (passwordConfirmation.touched || passwordConfirmation.dirty)">
       <div *ngIf="!passwordConfirmation.valid && (passwordConfirmation.touched || passwordConfirmation.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Passwords didn`t match!
       </div>
     </div>
@@ -79,7 +74,7 @@
   <div *ngIf="signedUp" class="error-container">
     <div class="text-center signed-up-message">
       User <span class="font-weight-bold">{{getUsername()}}</span> successfully signed up.
-      You can <a href="/login">login</a> now.
+      You can <a [routerLink]="['/login']">login</a> now.
     </div>
   </div>
   <div class="error-container">

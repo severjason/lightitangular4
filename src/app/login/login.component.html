@@ -4,25 +4,21 @@
   </h3>
   <form [formGroup]="loginForm"
         (ngSubmit)="onSubmit(loginForm.value)">
-    <div class="form-group"
-         [class.has-danger]="!username.valid && (username.touched || username.dirty)"
-         [class.has-success]="username.valid && (username.touched || username.dirty)">
+    <div class="form-group">
       <label class="form-control-label" for="username">Username</label>
       <input
         class="form-control"
         id="username"
         placeholder="Enter your username"
         [formControl]="username"
-        [class.form-control-danger]="!username.valid && (username.touched || username.dirty)"
-        [class.form-control-success]="username.valid && (username.touched || username.dirty)">
+        [class.is-invalid]="!username.valid && (username.touched || username.dirty)"
+        [class.is-valid]="username.valid && (username.touched || username.dirty)">
       <div *ngIf="!username.valid && (username.touched || username.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Please enter your name
       </div>
     </div>
-    <div class="form-group"
-         [class.has-danger]="!password.valid && (password.touched || password.dirty)"
-         [class.has-success]="password.valid && (password.touched || password.dirty)">
+    <div class="form-group">
       <label class="form-control-label" for="password">Password</label>
       <input
         type="password"
@@ -30,10 +26,10 @@
         id="password"
         placeholder="Enter your password"
         [formControl]="password"
-        [class.form-control-danger]="!password.valid && (password.touched || password.dirty)"
-        [class.form-control-success]="password.valid && (password.touched || password.dirty)">
+        [class.is-invalid]="!password.valid && (password.touched || password.dirty)"
+        [class.is-valid]="password.valid && (password.touched || password.dirty)">
       <div *ngIf="!password.valid && (password.touched || password.dirty)"
-           class="form-control-feedback">
+           class="invalid-feedback">
         Password shouldn`t be empty
       </div>
     </div>
