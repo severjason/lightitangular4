@@ -94,7 +94,7 @@ export class SignUpComponent implements OnInit {
   }
 
   public getUsername(): string | boolean {
-    return this.auth.getUserName();
+    return this.username.value;
   }
 
   public onSubmit(value: any): void {
