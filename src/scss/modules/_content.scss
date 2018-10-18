@@ -18,6 +18,10 @@
   padding-top: $product-container-padding;
 
   .product-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: $product-margin;
     width: 300px;
   }

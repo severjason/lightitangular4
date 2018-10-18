@@ -11,7 +11,7 @@
      class="product-preview grow-shadow"
      [routerLink]="['/product/', product.id]">
     <img class="product-img"
-         src="assets/imgs/{{product.img}}"
+         src="{{staticUrl}}{{product.img}}"
          alt="{{product.title}}"
          title="{{product.title}}">
     <div class="product-title">

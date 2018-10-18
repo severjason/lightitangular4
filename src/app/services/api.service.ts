@@ -9,7 +9,7 @@ import {AppCookieService} from './cookie.service';
 @Injectable()
 export class ApiService {
 
-  private _apiUrl = 'http://smktesting.herokuapp.com/api/';
+  private _mainUrl = 'http://smktesting.herokuapp.com';
   private _productsUrl = 'products/';
   private _registerUrl = 'register/';
   private _loginUrl = 'login/';
@@ -32,7 +32,11 @@ export class ApiService {
   }
 
   public get apiUrl(): string {
-    return this._apiUrl;
+    return `${this._mainUrl}/api/` ;
+  }
+
+  public get mainUrl(): string {
+    return this._mainUrl;
   }
 
   public get reviewsUrl(): string {

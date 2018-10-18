@@ -22,6 +22,7 @@ export class ProductComponent implements OnInit {
   public reviewText: AbstractControl;
   public product: IAppProduct;
   public reviews: IAppReview[];
+  public staticUrl: string;
   public error: any;
 
   constructor(private _titleService: Title,
@@ -92,6 +93,7 @@ export class ProductComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.product = this.products[this.id - 1];
+    this.staticUrl = `${this.api.mainUrl}/static/`;
     this.getReviews();
   }
 

@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   private _title = 'All products';
   public products: IAppProduct[];
   public error: string;
+  public staticUrl: string;
 
   constructor(private _titleService: Title, private apiService: ApiService) {
   }
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle(this.title);
     this.getProducts();
+    this.staticUrl = `${this.api.mainUrl}/static/`;
   }
 
   private get titleService(): Title {
